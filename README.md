@@ -1,5 +1,5 @@
 # Udemy course for Java developer
-[Professional Java Developer Career Starter: Java Foundations]([https://pages.github.com/](https://www.udemy.com/course/neutrino-java-foundations/)https://www.udemy.com/course/neutrino-java-foundations/)
+[Professional Java Developer Career Starter: Java Foundations](https://www.udemy.com/course/neutrino-java-foundations/)
 ## BlackJack
 Short demonstration of creating cards for black jack with usage of enums from videos. Implemented with TDD.
 ## Business
