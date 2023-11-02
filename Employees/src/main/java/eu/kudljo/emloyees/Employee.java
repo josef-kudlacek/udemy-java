@@ -18,7 +18,14 @@ public abstract class Employee {
     protected final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
     protected final NumberFormat moneyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
 
-    public Employee(String personText) {
+    protected Employee() {
+        peopleMatcher = null;
+        lastName = "N/A";
+        firstName = "N/A";
+        dob = null;
+    }
+
+    protected Employee(String personText) {
         peopleMatcher = Employee.PEOPLE_REGEX.matcher(personText);
         if (peopleMatcher.find()) {
             this.lastName = peopleMatcher.group("lastName");
@@ -28,7 +35,7 @@ public abstract class Employee {
     }
 
     // Rubble, Barney, 2/2/1905, Manager, {orgSize=300,dr=10}
-    public static final Employee createEmployee(String employeeText) {
+    public static Employee createEmployee(String employeeText) {
         Matcher peopleMatcher = Employee.PEOPLE_REGEX.matcher(employeeText);
 
         if (peopleMatcher.find()) {
@@ -37,10 +44,10 @@ public abstract class Employee {
                 case "Manager" -> new Manager(employeeText);
                 case "Analyst" -> new Analyst(employeeText);
                 case "CEO" -> new CEO(employeeText);
-                default -> new Nobody(employeeText);
+                default -> new DummyEmployee();
             };
         } else {
-            return null;
+            return new DummyEmployee();
         }
     }
 
@@ -55,4 +62,11 @@ public abstract class Employee {
         return String.format("%s, %s: %s - %s", lastName, firstName, moneyFormatter.format(getSalary()), moneyFormatter.format(getBonus()));
     }
 
+    private static final class DummyEmployee extends Employee {
+
+        @Override
+        public int getSalary() {
+            return 0;
+        }
+    }
 }

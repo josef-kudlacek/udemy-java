@@ -33,10 +33,8 @@ public class Main {
         while (peopleMatcher.find()) {
             employee = Employee.createEmployee(peopleMatcher.group());
 
-            if (employee != null) {
-                System.out.println(employee);
-                totalSalaries += employee.getSalary();
-            }
+            System.out.println(employee);
+            totalSalaries += employee.getSalary();
         }
 
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance(Locale.US);
