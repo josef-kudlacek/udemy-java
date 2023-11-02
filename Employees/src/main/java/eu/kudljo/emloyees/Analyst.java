@@ -7,14 +7,14 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Analyst {
+public class Analyst implements Employee {
 
     private String lastName;
     private String firstName;
     private LocalDate dob;
     private int projectCount = 0;
 
-    private final String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)\\})?\\n";
+    private final String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)})?\\n";
     private final Pattern peoplePattern = Pattern.compile(peopleRegex);
 
     private final String anaRegex = "\\w+=(?<projectCount>\\w+)";
@@ -37,6 +37,7 @@ public class Analyst {
         }
     }
 
+    @Override
     public int getSalary() {
         return 2500 + projectCount * 2;
     }

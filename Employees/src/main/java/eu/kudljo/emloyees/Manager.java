@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Manager {
+public class Manager implements Employee {
 
     private String lastName;
     private String firstName;
@@ -15,7 +15,7 @@ public class Manager {
     private int organizationSize = 0;
     private int directReports = 0;
 
-    private final String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)\\})?\\n";
+    private final String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)})?\\n";
     private final Pattern peoplePattern = Pattern.compile(peopleRegex);
 
     private final String mngRegex = "\\w+=(?<orgSize>\\w+),\\w+=(?<dr>\\w+)";
@@ -40,6 +40,7 @@ public class Manager {
         }
     }
 
+    @Override
     public int getSalary() {
         return 3500 + organizationSize * directReports;
     }

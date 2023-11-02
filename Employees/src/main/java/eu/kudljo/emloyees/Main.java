@@ -26,35 +26,23 @@ public class Main {
             Rubble, Betty, 4/4/1915, CEO, {avgStockPrice=300}
             """;
 
-        String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)\\})?\\n";
+        String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)})?\\n";
         Pattern peoplePattern = Pattern.compile(peopleRegex);
         Matcher peopleMatcher = peoplePattern.matcher(people);
 
         int totalSalaries = 0;
+        Employee employee;
         while (peopleMatcher.find()) {
-            totalSalaries += switch (peopleMatcher.group("role")) {
-                case "Programmer" -> {
-                    Programmer programmer = new Programmer(peopleMatcher.group());
-                    System.out.println(programmer);
-                    yield programmer.getSalary();
-                }
-                case "Manager" -> {
-                    Manager manager = new Manager(peopleMatcher.group());
-                    System.out.println(manager);
-                    yield manager.getSalary();
-                }
-                case "Analyst" -> {
-                    Analyst analyst = new Analyst(peopleMatcher.group());
-                    System.out.println(analyst);
-                    yield analyst.getSalary();
-                }
-                case "CEO" -> {
-                    CEO CEO = new CEO(peopleMatcher.group());
-                    System.out.println(CEO);
-                    yield CEO.getSalary();
-                }
-                default -> 0;
+            employee = switch (peopleMatcher.group("role")) {
+                case "Programmer" -> new Programmer(peopleMatcher.group());
+                case "Manager" -> new Manager(peopleMatcher.group());
+                case "Analyst" -> new Analyst(peopleMatcher.group());
+                case "CEO" -> new CEO(peopleMatcher.group());
+                default -> new Nobody(peopleMatcher.group());
             };
+
+            System.out.println(employee);
+            totalSalaries += employee.getSalary();
         }
 
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance(Locale.US);

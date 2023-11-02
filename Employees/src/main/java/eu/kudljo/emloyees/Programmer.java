@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Programmer {
+public class Programmer implements Employee {
 
     private String lastName;
     private String firstName;
@@ -16,7 +16,7 @@ public class Programmer {
     private int yearsOfExp = 0;
     private int iq = 0;
 
-    private final String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)\\})?\\n";
+    private final String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)})?\\n";
     private final Pattern peoplePattern = Pattern.compile(peopleRegex);
     private final String progRegex = "\\w+=(?<locpd>\\w+),\\w+=(?<yoe>\\w+),\\w+=(?<iq>\\w+)";
     private final Pattern progPattern = Pattern.compile(progRegex);
@@ -40,6 +40,7 @@ public class Programmer {
         }
     }
 
+    @Override
     public int getSalary() {
         // salary = 3000 + locpd * yoe * iq;
         return 3000 + linesOfCode * yearsOfExp * iq;
