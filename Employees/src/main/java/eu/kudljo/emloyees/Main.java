@@ -3,7 +3,6 @@ package eu.kudljo.emloyees;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,30 +19,24 @@ public class Main {
                 Rubble4, Barney, 2/2/1905, Manager, {orgSize=500,dr=8}
                 Rubble5, Barney, 2/2/1905, Manager, {orgSize=175,dr=20}
                 Flintstone, Wilma, 3/3/1910, Analyst, {projectCount=3}
-            Flintstone2, Wilma, 3/3/1910, Analyst, {projectCount=4}
-            Flintstone3, Wilma, 3/3/1910, Analyst, {projectCount=5}
-            Flintstone4, Wilma, 3/3/1910, Analyst, {projectCount=6}
-            Flintstone5, Wilma, 3/3/1910, Analyst, {projectCount=9}
-            Rubble, Betty, 4/4/1915, CEO, {avgStockPrice=300}
-            """;
+                Flintstone2, Wilma, 3/3/1910, Analyst, {projectCount=4}
+                Flintstone3, Wilma, 3/3/1910, Analyst, {projectCount=5}
+                Flintstone4, Wilma, 3/3/1910, Analyst, {projectCount=6}
+                Flintstone5, Wilma, 3/3/1910, Analyst, {projectCount=9}
+                Rubble, Betty, 4/4/1915, CEO, {avgStockPrice=300}
+                """;
 
-        String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)})?\\n";
-        Pattern peoplePattern = Pattern.compile(peopleRegex);
-        Matcher peopleMatcher = peoplePattern.matcher(people);
+        Matcher peopleMatcher = Employee.PEOPLE_REGEX.matcher(people);
 
         int totalSalaries = 0;
         Employee employee;
         while (peopleMatcher.find()) {
-            employee = switch (peopleMatcher.group("role")) {
-                case "Programmer" -> new Programmer(peopleMatcher.group());
-                case "Manager" -> new Manager(peopleMatcher.group());
-                case "Analyst" -> new Analyst(peopleMatcher.group());
-                case "CEO" -> new CEO(peopleMatcher.group());
-                default -> new Nobody(peopleMatcher.group());
-            };
+            employee = Employee.createEmployee(peopleMatcher.group());
 
-            System.out.println(employee);
-            totalSalaries += employee.getSalary();
+            if (employee != null) {
+                System.out.println(employee);
+                totalSalaries += employee.getSalary();
+            }
         }
 
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance(Locale.US);
