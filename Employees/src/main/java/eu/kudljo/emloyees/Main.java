@@ -28,6 +28,8 @@ public class Main {
                 """;
 
         Matcher peopleMatcher = Employee.PEOPLE_REGEX.matcher(people);
+        Flyer flyer = new CEO("");
+        flyer.fly();
 
         int totalSalaries = 0;
         IEmployee employee;
