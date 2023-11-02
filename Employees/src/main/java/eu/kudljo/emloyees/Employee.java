@@ -35,7 +35,7 @@ public abstract class Employee {
     }
 
     // Rubble, Barney, 2/2/1905, Manager, {orgSize=300,dr=10}
-    public static Employee createEmployee(String employeeText) {
+    public static IEmployee createEmployee(String employeeText) {
         Matcher peopleMatcher = Employee.PEOPLE_REGEX.matcher(employeeText);
 
         class MyLocalClass extends Employee {
@@ -50,12 +50,7 @@ public abstract class Employee {
                 case "Manager" -> new Manager(employeeText);
                 case "Analyst" -> new Analyst(employeeText);
                 case "CEO" -> new CEO(employeeText);
-                default -> new Employee() { // anonymous class
-                    @Override
-                    public int getSalary() {
-                        return 0;
-                    }
-                };
+                default -> () -> 0;
             };
         } else {
             return new DummyEmployee();
@@ -73,7 +68,7 @@ public abstract class Employee {
         return String.format("%s, %s: %s - %s", lastName, firstName, moneyFormatter.format(getSalary()), moneyFormatter.format(getBonus()));
     }
 
-    private static final class DummyEmployee extends Employee {
+    private static final class DummyEmployee extends Employee implements IEmployee {
 
         @Override
         public int getSalary() {

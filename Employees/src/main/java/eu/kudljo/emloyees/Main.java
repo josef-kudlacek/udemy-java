@@ -30,7 +30,7 @@ public class Main {
         Matcher peopleMatcher = Employee.PEOPLE_REGEX.matcher(people);
 
         int totalSalaries = 0;
-        Employee employee;
+        IEmployee employee;
         while (peopleMatcher.find()) {
             employee = Employee.createEmployee(peopleMatcher.group());
 
