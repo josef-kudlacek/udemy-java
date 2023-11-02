@@ -6,4 +6,9 @@ public class Nobody extends Employee implements IEmployee, Apple {
         super(personText);
     }
 
+    @Override
+    public int getSalary() {
+        return 0;
+    }
+
 }

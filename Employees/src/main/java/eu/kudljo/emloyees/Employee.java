@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Employee implements IEmployee {
+public abstract class Employee {
 
     protected String lastName;
     protected String firstName;
@@ -27,13 +27,14 @@ public class Employee implements IEmployee {
         }
     }
 
-    @Override
-    public int getSalary() {
-        return 0;
+    public abstract int getSalary();
+
+    public double getBonus() {
+        return getSalary() * 1.10;
     }
 
     @Override
     public String toString() {
-        return String.format("%s, %s: %s", lastName, firstName, moneyFormatter.format(getSalary()));
+        return String.format("%s, %s: %s - %s", lastName, firstName, moneyFormatter.format(getSalary()), moneyFormatter.format(getBonus()));
     }
 }
