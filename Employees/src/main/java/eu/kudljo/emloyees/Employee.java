@@ -38,13 +38,24 @@ public abstract class Employee {
     public static Employee createEmployee(String employeeText) {
         Matcher peopleMatcher = Employee.PEOPLE_REGEX.matcher(employeeText);
 
+        class MyLocalClass extends Employee {
+            public int getSalary() {
+                return 0;
+            }
+        }
+
         if (peopleMatcher.find()) {
             return switch (peopleMatcher.group("role")) {
                 case "Programmer" -> new Programmer(employeeText);
                 case "Manager" -> new Manager(employeeText);
                 case "Analyst" -> new Analyst(employeeText);
                 case "CEO" -> new CEO(employeeText);
-                default -> new DummyEmployee();
+                default -> new Employee() { // anonymous class
+                    @Override
+                    public int getSalary() {
+                        return 0;
+                    }
+                };
             };
         } else {
             return new DummyEmployee();
@@ -69,4 +80,6 @@ public abstract class Employee {
             return 0;
         }
     }
+
+
 }
