@@ -3,7 +3,7 @@ package eu.kudljo.emloyees;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Programmer extends Employee implements IEmployee, DummyInterface {
+public class Programmer extends Employee implements IEmployee, DummyInterface, Chef {
 
     private int linesOfCode = 0;
     private int yearsOfExp = 0;
