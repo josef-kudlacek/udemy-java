@@ -3,7 +3,7 @@ package eu.kudljo.emloyees;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Programmer extends Employee {
+public class Programmer extends Employee implements IEmployee, Apple {
 
     private int linesOfCode = 0;
     private int yearsOfExp = 0;
@@ -14,6 +14,7 @@ public class Programmer extends Employee {
 
     public Programmer(String personText) {
         super(personText);
+
         Matcher progMatcher = progPattern.matcher(peopleMatcher.group("details"));
         if (progMatcher.find()) {
             this.linesOfCode = Integer.parseInt(progMatcher.group("locpd"));

@@ -7,14 +7,14 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Employee {
+public class Employee implements IEmployee {
 
-    protected final Matcher peopleMatcher;
     protected String lastName;
     protected String firstName;
     protected LocalDate dob;
     private final String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)})?\\n";
     protected final Pattern peoplePattern = Pattern.compile(peopleRegex);
+    protected final Matcher peopleMatcher;
     protected final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
     protected final NumberFormat moneyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
 
@@ -27,6 +27,7 @@ public class Employee {
         }
     }
 
+    @Override
     public int getSalary() {
         return 0;
     }
