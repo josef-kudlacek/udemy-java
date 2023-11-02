@@ -3,7 +3,7 @@ package eu.kudljo.emloyees;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CEO extends Employee implements IEmployee, Apple {
+public class CEO extends Employee implements IEmployee, DummyInterface {
 
     private int avgStockPrice = 0;
 

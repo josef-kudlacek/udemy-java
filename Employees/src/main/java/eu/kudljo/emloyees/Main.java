@@ -1,6 +1,7 @@
 package eu.kudljo.emloyees;
 
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.Locale;
 import java.util.regex.Matcher;
 
@@ -39,5 +40,12 @@ public class Main {
 
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance(Locale.US);
         System.out.printf("The total payout should be %s%n", currencyInstance.format(totalSalaries));
+
+        Weirdo dirt = new Weirdo("Dirt", "Joe", LocalDate.of(2000, 11, 2));
+        System.out.println(dirt.lastName());
+        // Only way to change properties
+        Weirdo betterWeirdo = new Weirdo(dirt.lastName() + "Better", dirt.firstName(), dirt.dob());
+        Weirdo jake = new Weirdo("Snake", "Jake");
+        jake.sayHello();
     }
 }
