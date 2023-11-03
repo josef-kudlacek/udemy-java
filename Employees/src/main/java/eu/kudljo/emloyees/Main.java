@@ -33,6 +33,7 @@ public class Main {
         //coder.cook("Hamburger");
 
         int totalSalaries = 0;
+        // Prefer the most generic instance of object to use.
         IEmployee employee;
         while (peopleMatcher.find()) {
             employee = Employee.createEmployee(peopleMatcher.group());
@@ -55,7 +56,8 @@ public class Main {
                 specificRoleText = "N/A:";
             }
 
-            System.out.println(String.format("%s: %s", specificRoleText, employee));
+            System.out.printf("%s: %s%n", specificRoleText, employee);
+            // Example of usage of polymorphism for get employee's salary:
             totalSalaries += employee.getSalary();
         }
 
