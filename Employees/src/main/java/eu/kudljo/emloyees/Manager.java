@@ -27,4 +27,19 @@ public class Manager extends Employee implements IEmployee, DummyInterface {
         return 3500 + organizationSize * directReports;
     }
 
+    public int getOrganizationSize() {
+        return organizationSize;
+    }
+
+    public void setOrganizationSize(int organizationSize) {
+        this.organizationSize = organizationSize;
+    }
+
+    public int getDirectReports() {
+        return directReports;
+    }
+
+    public void setDirectReports(int directReports) {
+        this.directReports = directReports;
+    }
 }

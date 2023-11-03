@@ -24,4 +24,11 @@ public class Analyst extends Employee implements IEmployee, DummyInterface {
         return 2500 + projectCount * 2;
     }
 
+    public int getProjectCount() {
+        return projectCount;
+    }
+
+    public void setProjectCount(int projectCount) {
+        this.projectCount = projectCount;
+    }
 }

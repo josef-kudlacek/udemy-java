@@ -37,7 +37,25 @@ public class Main {
         while (peopleMatcher.find()) {
             employee = Employee.createEmployee(peopleMatcher.group());
 
-            System.out.println(employee);
+            String specificRoleText;
+            // Check instance of employee and cast to variable
+            if (employee instanceof Programmer programmer) {
+                specificRoleText = String.format("Programmer (iq: %d, code: %d, experience: %d)",
+                        programmer.getIq(), programmer.getLinesOfCode(), programmer.getYearsOfExp());
+            } else if (employee instanceof Manager manager) {
+                specificRoleText = String.format("Manager (size of organization: %d, reports: %d)",
+                        manager.getOrganizationSize(), manager.getDirectReports());
+            } else if (employee instanceof Analyst analyst) {
+                specificRoleText = String.format("Analyst (count of projects: %d)",
+                        analyst.getProjectCount());
+            } else if (employee instanceof CEO ceo) {
+                specificRoleText = String.format("CEO (average of stock price: %d)",
+                        ceo.getAvgStockPrice());
+            } else {
+                specificRoleText = "N/A:";
+            }
+
+            System.out.println(String.format("%s: %s", specificRoleText, employee));
             totalSalaries += employee.getSalary();
         }
 

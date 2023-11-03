@@ -49,4 +49,12 @@ public class CEO extends Employee implements IEmployee, DummyInterface, Flyer {
     public void setIfr(boolean ifr) {
         flyer.setIfr(ifr);
     }
+
+    public int getAvgStockPrice() {
+        return avgStockPrice;
+    }
+
+    public void setAvgStockPrice(int avgStockPrice) {
+        this.avgStockPrice = avgStockPrice;
+    }
 }
