@@ -66,11 +66,11 @@ public class Main {
 //            totalSalaries += employee.getSalary();
         }
 
-        List<String> undesirableFirstNames = List.of("Wilma5", "Barney4", "Fred2");
-//        undesirableFirstNames.add("Wilma5");
-//        undesirableFirstNames.add("Barney4");
-//        undesirableFirstNames.add("Fred2");
+        employeeList.remove(0);
+        employeeList.remove(1);
+        employeeList.remove(2);
 
+        List<String> undesirableFirstNames = List.of("Wilma5", "Barney4", "Fred2");
         removeUndesirables(employeeList, undesirableFirstNames);
 
         for (IEmployee employeeElement : employeeList) {
