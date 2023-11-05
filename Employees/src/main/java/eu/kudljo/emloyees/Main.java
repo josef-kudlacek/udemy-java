@@ -2,7 +2,8 @@ package eu.kudljo.emloyees;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -65,12 +66,12 @@ public class Main {
 //            totalSalaries += employee.getSalary();
         }
 
-        List<String> removalFirstNames = new ArrayList<>();
-        removalFirstNames.add("Wilma5");
-        removalFirstNames.add("Barney4");
-        removalFirstNames.add("Fred2");
+        List<String> undesirableFirstNames = List.of("Wilma5", "Barney4", "Fred2");
+//        undesirableFirstNames.add("Wilma5");
+//        undesirableFirstNames.add("Barney4");
+//        undesirableFirstNames.add("Fred2");
 
-        removeUndesirables(employeeList, removalFirstNames);
+        removeUndesirables(employeeList, undesirableFirstNames);
 
         for (IEmployee employeeElement : employeeList) {
             System.out.println(employeeElement.toString());
