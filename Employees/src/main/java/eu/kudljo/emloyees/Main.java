@@ -2,8 +2,8 @@ package eu.kudljo.emloyees;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -38,7 +38,7 @@ public class Main {
         int totalSalaries = 0;
         // Prefer the most generic instance of object to use.
         IEmployee employee;
-        List<IEmployee> employeeList = new LinkedList<>();
+        List<IEmployee> employeeList = new ArrayList<>(16); // Initialization with knowing size of elements
         while (peopleMatcher.find()) {
             employee = Employee.createEmployee(peopleMatcher.group());
             employeeList.add(employee);
@@ -70,8 +70,27 @@ public class Main {
         employeeList.remove(1);
         employeeList.remove(2);
 
+        employeeList.add(0, new Programmer("Flintstone, Fred, 1/1/1900, Programmer, {locpd=2000,yoe=10,iq=140}\n"));
+
+        // Replacing element in list based on index
+        employeeList.set(0, Employee.createEmployee("Rubble, Betty, 4/4/1915, CEO, {avgStockPrice=300}\n"));
+
+        // Creating sublist of list
+        List<IEmployee> employeeSublist = employeeList.subList(0, 3);
+
+        // Creating array from array
+        Object[] genericEmployeeArray = employeeList.toArray();
+        IEmployee[] employeeAnotherList = employeeList.toArray(new IEmployee[employeeList.size()]);
+
+        // Unmodifiable list
         List<String> undesirableFirstNames = List.of("Wilma5", "Barney4", "Fred2");
+        // This list can be modifiable
+//        List<String> undesirableFirstNames = new ArrayList<>(List.of("Wilma5", "Barney4", "Fred2"));
         removeUndesirables(employeeList, undesirableFirstNames);
+
+        List<String> newStrings = new ArrayList<>();
+        newStrings.addAll(undesirableFirstNames);
+        System.out.println(newStrings.size());
 
         for (IEmployee employeeElement : employeeList) {
             System.out.println(employeeElement.toString());
