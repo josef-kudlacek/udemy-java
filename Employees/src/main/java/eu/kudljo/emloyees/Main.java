@@ -88,6 +88,16 @@ public class Main {
 //        List<String> undesirableFirstNames = new ArrayList<>(List.of("Wilma5", "Barney4", "Fred2"));
         removeUndesirables(employeeList, undesirableFirstNames);
 
+        // Example of contains method
+        IEmployee myEmployee = employeeList.get(5);
+        System.out.println("Is my employee contained in list? " + employeeList.contains(myEmployee));
+
+        // Example of contains method – false is caused because method of equals for comparing is not override correctly
+        // Without overriding equals method equals will only compare address in memory
+        IEmployee employeeCreated = Employee.createEmployee("Rubble2, Barney2, 2/2/1905, Manager, {orgSize=100,dr=4}\n");
+        System.out.println("Is my created employee contained in list? " + employeeList.contains(employeeCreated));
+        System.out.println("Is my created employee equaled to employee from list? " + myEmployee.equals(employeeCreated));
+
         List<String> newStrings = new ArrayList<>();
         newStrings.addAll(undesirableFirstNames);
         System.out.println(newStrings.size());

@@ -1,5 +1,6 @@
 package eu.kudljo.emloyees;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,5 +42,19 @@ public class Manager extends Employee implements IEmployee, DummyInterface {
 
     public void setDirectReports(int directReports) {
         this.directReports = directReports;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Manager manager = (Manager) o;
+        return organizationSize == manager.organizationSize && directReports == manager.directReports;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), organizationSize, directReports);
     }
 }
