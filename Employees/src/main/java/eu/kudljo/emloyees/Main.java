@@ -2,10 +2,7 @@ package eu.kudljo.emloyees;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.regex.Matcher;
 
 public class Main {
@@ -85,7 +82,9 @@ public class Main {
         // Unmodifiable list
         List<String> undesirableFirstNames = List.of("Wilma5", "Barney4", "Fred2");
         // This list can be modifiable
-//        List<String> undesirableFirstNames = new ArrayList<>(List.of("Wilma5", "Barney4", "Fred2"));
+        undesirableFirstNames = new ArrayList<>(List.of("Wilma5", "Barney4", "Fred2"));
+        undesirableFirstNames.sort(Comparator.reverseOrder()); // pre-implemented comparators
+        System.out.println(undesirableFirstNames);
         removeUndesirables(employeeList, undesirableFirstNames);
 
         // Example of contains method
@@ -102,15 +101,17 @@ public class Main {
         newStrings.addAll(undesirableFirstNames);
         System.out.println(newStrings.size());
 
-        employeeList.sort((o1, o2) -> {
-            if (o1 instanceof Employee employee1 && o2 instanceof Employee employee2) {
-                int lastNameResult = employee1.getLastName().compareTo(employee2.getLastName());
-                return (lastNameResult != 0) ? lastNameResult :
-                        Integer.compare(employee2.getSalary(), employee1.getSalary());
-            }
+        Collections.sort(employeeList, Comparator.reverseOrder());
 
-            return 0;
-        });
+//        employeeList.sort((o1, o2) -> {
+//            if (o1 instanceof Employee employee1 && o2 instanceof Employee employee2) {
+//                int lastNameResult = employee1.getLastName().compareTo(employee2.getLastName());
+//                return (lastNameResult != 0) ? lastNameResult :
+//                        Integer.compare(employee2.getSalary(), employee1.getSalary());
+//            }
+//
+//            return 0;
+//        });
 
         for (IEmployee employeeElement : employeeList) {
             System.out.println(employeeElement.toString());

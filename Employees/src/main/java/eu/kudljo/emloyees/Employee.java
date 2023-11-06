@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class Employee {
+public abstract class Employee implements IEmployee {
 
     protected String lastName;
     protected String firstName;
@@ -51,7 +51,7 @@ public abstract class Employee {
                 case "Manager" -> new Manager(employeeText);
                 case "Analyst" -> new Analyst(employeeText);
                 case "CEO" -> new CEO(employeeText);
-                default -> () -> 0;
+                default -> new DummyEmployee();
             };
         } else {
             return new DummyEmployee();
@@ -106,12 +106,18 @@ public abstract class Employee {
         return Objects.hash(lastName, firstName, dob);
     }
 
-    private static final class DummyEmployee extends Employee implements IEmployee {
+    private static final class DummyEmployee extends Employee {
 
         @Override
         public int getSalary() {
             return 0;
         }
+    }
+
+    @Override
+    public int compareTo(IEmployee o) {
+        Employee other = (Employee) o;
+        return this.getLastName().compareTo(other.getLastName());
     }
 
     public record Jumper(String firstName, String lastName) {
