@@ -102,6 +102,16 @@ public class Main {
         newStrings.addAll(undesirableFirstNames);
         System.out.println(newStrings.size());
 
+        employeeList.sort((o1, o2) -> {
+            if (o1 instanceof Employee employee1 && o2 instanceof Employee employee2) {
+                int lastNameResult = employee1.getLastName().compareTo(employee2.getLastName());
+                return (lastNameResult != 0) ? lastNameResult :
+                        Integer.compare(employee2.getSalary(), employee1.getSalary());
+            }
+
+            return 0;
+        });
+
         for (IEmployee employeeElement : employeeList) {
             System.out.println(employeeElement.toString());
             totalSalaries += employeeElement.getSalary();
