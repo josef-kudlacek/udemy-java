@@ -1,14 +1,19 @@
 package eu.kudljo.emloyees;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 import java.util.regex.Matcher;
 
 public class Main {
     public static void main(String[] args) {
         String people = """
+                Flintstone, Fred, 1/1/1900, Programmer, {locpd=2000,yoe=10,iq=140}
+                Flintstone, Fred, 1/1/1900, Programmer, {locpd=2000,yoe=10,iq=140}
+                Flintstone, Fred, 1/1/1900, Programmer, {locpd=2000,yoe=10,iq=140}
+                Flintstone, Fred, 1/1/1900, Programmer, {locpd=2000,yoe=10,iq=140}
+                Flintstone, Fred, 1/1/1900, Programmer, {locpd=2000,yoe=10,iq=140}
                 Flintstone, Fred, 1/1/1900, Programmer, {locpd=2000,yoe=10,iq=140}
                 Flintstone, Fred, 1/1/1900, Programmerzz, {locpd=2000,yoe=10,iq=140}
                 Flintstone2, Fred2, 1/1/1900, Programmer, {locpd=1300,yoe=14,iq=100}
@@ -33,7 +38,7 @@ public class Main {
         int totalSalaries = 0;
         // Prefer the most generic instance of object to use.
         IEmployee employee;
-        List<IEmployee> employeeList = new ArrayList<>(16); // Initialization with knowing size of elements
+        Set<IEmployee> employeeList = new HashSet<>();
         while (peopleMatcher.find()) {
             employee = Employee.createEmployee(peopleMatcher.group());
             employeeList.add(employee);
@@ -46,5 +51,6 @@ public class Main {
 
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance(Locale.US);
         System.out.printf("The total payout should be %s%n", currencyInstance.format(totalSalaries));
+        System.out.println(employeeList.size());
     }
 }
