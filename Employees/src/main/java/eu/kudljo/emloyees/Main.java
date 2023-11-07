@@ -1,7 +1,7 @@
 package eu.kudljo.emloyees;
 
 import java.text.NumberFormat;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -38,7 +38,7 @@ public class Main {
         int totalSalaries = 0;
         // Prefer the most generic instance of object to use.
         IEmployee employee;
-        Set<IEmployee> employeeList = new HashSet<>();
+        Set<IEmployee> employeeList = new LinkedHashSet<>();
         while (peopleMatcher.find()) {
             employee = Employee.createEmployee(peopleMatcher.group());
             employeeList.add(employee);

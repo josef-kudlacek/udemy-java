@@ -98,12 +98,15 @@ public abstract class Employee implements IEmployee {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Employee employee = (Employee) object;
-        return Objects.equals(lastName, employee.lastName) && Objects.equals(firstName, employee.firstName) && Objects.equals(dob, employee.dob);
+        return Objects.equals(lastName, employee.lastName) &&
+                Objects.equals(firstName, employee.firstName) &&
+                Objects.equals(dob, employee.dob) &&
+                getClass().equals(object.getClass());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lastName, firstName, dob);
+        return Objects.hash(lastName, firstName, dob, getClass());
     }
 
     private static final class DummyEmployee extends Employee {
