@@ -120,7 +120,8 @@ public abstract class Employee implements IEmployee {
     @Override
     public int compareTo(IEmployee o) {
         Employee other = (Employee) o;
-        return this.getLastName().compareTo(other.getLastName());
+        // Because of same last name will tree set evaluate some employees as same and not store them:
+        return this.getFirstName().compareTo(other.getFirstName());
     }
 
     public record Jumper(String firstName, String lastName) {

@@ -1,9 +1,9 @@
 package eu.kudljo.emloyees;
 
 import java.text.NumberFormat;
-import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 
 public class Main {
@@ -38,7 +38,7 @@ public class Main {
         int totalSalaries = 0;
         // Prefer the most generic instance of object to use.
         IEmployee employee;
-        Set<IEmployee> employeeList = new LinkedHashSet<>();
+        Set<IEmployee> employeeList = new TreeSet<>();
         while (peopleMatcher.find()) {
             employee = Employee.createEmployee(peopleMatcher.group());
             employeeList.add(employee);
