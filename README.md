@@ -5,7 +5,7 @@ Basic Java and OOP with demonstration of inheritance from videos.
 ## BlackJack
 Short demonstration of creating cards for black jack with usage of enums from videos. Implemented with TDD.
 ## Employees
-Demonstration of OOP for read employees from string with usage of regex from videos. Split them by role and calculate their salary.
+Demonstration of OOP for read employees from string with usage of regex from videos. Split them by role and calculate their salary. Using Collections too.
 ## Exercises
 Implementation of tasks on the end of every course chapter to repeat knowledge.
 ## Methods
