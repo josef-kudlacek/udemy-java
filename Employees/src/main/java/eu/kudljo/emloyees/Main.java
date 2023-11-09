@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 public class Main {
 
     private static Set<IEmployee> employees;
-    private static Map<String, Employee> employeeMap;
+    private static Map<String, Integer> employeeMap;
 
     public static void main(String[] args) {
         String people = """
@@ -46,7 +46,7 @@ public class Main {
             employee = Employee.createEmployee(peopleMatcher.group());
             Employee emp = (Employee) employee;
             employees.add(employee);
-            employeeMap.put(emp.firstName, emp);
+            employeeMap.putIfAbsent(emp.firstName, emp.getSalary()); // duplicated values will not be replaced with new one
         }
 
         for (IEmployee employeeElement : employees) {
@@ -57,10 +57,16 @@ public class Main {
         NumberFormat currencyInstance = NumberFormat.getCurrencyInstance(Locale.US);
         System.out.printf("The total payout should be %s%n", currencyInstance.format(totalSalaries));
         System.out.println(employees.size());
-        System.out.println(employeeMap);
+        System.out.println(employeeMap.keySet());
+        System.out.println(employeeMap.values());
+        for (Map.Entry<String, Integer> entry : employeeMap.entrySet()) {
+            System.out.printf("Key = %s, Value = %s%n", entry.getKey(), entry.getValue());
+        }
+        System.out.println(employeeMap.containsKey("Wilma"));
+        System.out.println(employeeMap.containsValue("2508"));
     }
 
     public int getSalary(String firstName) {
-        return employeeMap.get(firstName).getSalary();
+        return employeeMap.getOrDefault(firstName, -1);
     }
 }
