@@ -1,8 +1,7 @@
 package eu.kudljo.emloyees;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class Streams {
     public static void main(String[] args) {
@@ -31,17 +30,20 @@ public class Streams {
                 Rubble, Betty, 4/4/1915, CEO, {avgStockPrice=300}
                 """;
 
-        try {
-            Files.lines(Path.of("C:\\Users\\Pepa Kudláček\\IdeaProjects\\udemy-java\\Employees\\src\\main\\java\\eu\\kudljo\\emloyees\\employees.txt"))
-                    .forEach(System.out::println);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Files.lines(Path.of("C:\\Users\\Pepa Kudláček\\IdeaProjects\\udemy-java\\Employees\\src\\main\\java\\eu\\kudljo\\emloyees\\employees.txt"))
+//                    .forEach(System.out::println);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 //
-//        peopleText.lines()
-////                .map(s -> Employee.createEmployee(s))
-//                .map(Employee::createEmployee)
-//                .forEach(System.out::println); // '::' is operator for referencing to methods
+        int sum = peopleText.lines()
+                .map(Employee::createEmployee)
+                .mapToInt(Streams::showEmployeeAndGetSalary)
+                .sum();
+
+        System.out.printf("%nSum of salaries is: %s", NumberFormat.getCurrencyInstance(Locale.US)
+                .format(sum));
 
 
 //        Collection<String> nums = Set.of("one", "two", "three", "four");
@@ -74,5 +76,11 @@ public class Streams {
 //        Arrays.stream(names)
 //                .map(String::toUpperCase)
 //                .forEach(System.out::println);
+    }
+
+    public static int showEmployeeAndGetSalary(IEmployee employee) {
+        System.out.println(employee);
+
+        return employee.getSalary();
     }
 }
