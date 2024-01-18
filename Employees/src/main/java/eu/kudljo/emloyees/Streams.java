@@ -1,6 +1,7 @@
 package eu.kudljo.emloyees;
 
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -34,6 +35,16 @@ public class Streams {
                 Rubble, Betty, 4/4/1915, CEO, {avgStockPrice=300}
                 """;
 
+        peopleText.lines()
+                .map(Employee::createEmployee)
+                .map(employee -> (Employee) employee)
+                .map(Employee::getFirstName)
+                .map(firstName -> firstName.split(""))
+                .flatMap(Arrays::stream)
+                .distinct()
+                .forEach(System.out::print);
+
+        System.out.println();
 //        try {
 //            Files.lines(Path.of("C:\\Users\\Pepa Kudláček\\IdeaProjects\\udemy-java\\Employees\\src\\main\\java\\eu\\kudljo\\emloyees\\employees.txt"))
 //                    .forEach(System.out::println);
