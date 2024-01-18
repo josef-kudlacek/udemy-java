@@ -2,8 +2,10 @@ package eu.kudljo.emloyees;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
+import static java.util.function.Predicate.not;
 
 public class Streams {
     public static void main(String[] args) {
@@ -43,11 +45,17 @@ public class Streams {
         int sum = peopleText.lines()
                 .map(Employee::createEmployee)
                 .map(employee -> (Employee) employee)
+                // usage of Predicate with NOT
+                .filter(not(employee -> employee instanceof Programmer))
+                .filter(not(employee -> "N/A".equals(employee.getLastName())))
+                .filter(employee -> employee.getSalary() > 5000)
+                .filter(employee -> employee.getSalary() < 10000)
+                // remove duplicates by input them to Set
+                .collect(Collectors.toSet()).stream()
                 // nested sorting by multiple attributes
                 .sorted(comparing(Employee::getLastName)
                         .thenComparing(Employee::getFirstName)
                         .thenComparingInt(Employee::getSalary)
-                        .reversed()
                 )
                 .mapToInt(Streams::showEmployeeAndGetSalary)
                 .sum();
