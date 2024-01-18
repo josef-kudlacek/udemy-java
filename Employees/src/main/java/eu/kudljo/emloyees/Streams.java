@@ -2,10 +2,10 @@ package eu.kudljo.emloyees;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
-import static java.util.function.Predicate.not;
 
 public class Streams {
     public static void main(String[] args) {
@@ -42,14 +42,21 @@ public class Streams {
 //        }
 //
 
+//        Predicate<String> dummyEmployeeSelector = s -> s.contains("Programmerzz");
+        Predicate<Employee> employeePredicate = employee -> "N/A".equals(employee.getLastName());
+        Predicate<Employee> underFiveKSelector = employee -> employee.getSalary() < 5000;
+        Predicate<Employee> noDummiesAndUnderFiveK = employeePredicate.negate().and(underFiveKSelector);
         int sum = peopleText.lines()
+//                .filter(not(s -> s.contains("Programmerzz")))
+//                .filter(dummyEmployeeSelector.negate())
                 .map(Employee::createEmployee)
                 .map(employee -> (Employee) employee)
+                .filter(noDummiesAndUnderFiveK)
                 // usage of Predicate with NOT
-                .filter(not(employee -> employee instanceof Programmer))
-                .filter(not(employee -> "N/A".equals(employee.getLastName())))
-                .filter(employee -> employee.getSalary() > 5000)
-                .filter(employee -> employee.getSalary() < 10000)
+//                .filter(not(employee -> employee instanceof Programmer))
+//                .filter(not(employee -> "N/A".equals(employee.getLastName())))
+//                .filter(employee -> employee.getSalary() > 5000)
+//                .filter(employee -> employee.getSalary() < 10000)
                 // remove duplicates by input them to Set
                 .collect(Collectors.toSet()).stream()
                 // nested sorting by multiple attributes
