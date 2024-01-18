@@ -3,6 +3,8 @@ package eu.kudljo.emloyees;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import static java.util.Comparator.comparing;
+
 public class Streams {
     public static void main(String[] args) {
         String peopleText = """
@@ -37,8 +39,16 @@ public class Streams {
 //            throw new RuntimeException(e);
 //        }
 //
+
         int sum = peopleText.lines()
                 .map(Employee::createEmployee)
+                .map(employee -> (Employee) employee)
+                // nested sorting by multiple attributes
+                .sorted(comparing(Employee::getLastName)
+                        .thenComparing(Employee::getFirstName)
+                        .thenComparingInt(Employee::getSalary)
+                        .reversed()
+                )
                 .mapToInt(Streams::showEmployeeAndGetSalary)
                 .sum();
 
