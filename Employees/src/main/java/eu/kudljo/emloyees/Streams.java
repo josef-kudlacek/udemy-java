@@ -1,5 +1,9 @@
 package eu.kudljo.emloyees;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 public class Streams {
     public static void main(String[] args) {
         String peopleText = """
@@ -27,9 +31,48 @@ public class Streams {
                 Rubble, Betty, 4/4/1915, CEO, {avgStockPrice=300}
                 """;
 
-        peopleText.lines()
-//                .map(s -> Employee.createEmployee(s))
-                .map(Employee::createEmployee)
-                .forEach(System.out::println); // '::' is operator for referencing to methods
+        try {
+            Files.lines(Path.of("C:\\Users\\Pepa Kudláček\\IdeaProjects\\udemy-java\\Employees\\src\\main\\java\\eu\\kudljo\\emloyees\\employees.txt"))
+                    .forEach(System.out::println);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+//
+//        peopleText.lines()
+////                .map(s -> Employee.createEmployee(s))
+//                .map(Employee::createEmployee)
+//                .forEach(System.out::println); // '::' is operator for referencing to methods
+
+
+//        Collection<String> nums = Set.of("one", "two", "three", "four");
+//        nums
+//                .stream()
+//                .map(String::hashCode)
+//                .map(Integer::toHexString)
+//                .forEach(System.out::println);
+//
+//        record Car(String make, String model){}
+//
+//        Stream.of(new Car("Ford", "Bronco"), new Car("Tesla", "X"), new Car("Tesla", "3"))
+//                .filter(car -> "Tesla".equals(car.make))
+//                .forEach(System.out::println);
+
+        // Filter null values in stream
+//        String myVar = null;
+//        Stream myStream = null;
+//
+//        Stream.ofNullable(myVar)
+//                .forEach(System.out::println);
+
+        // Stream especially for integers
+//        IntStream.rangeClosed(1, 40)
+//                .mapToObj(String::valueOf)
+//                .map(s -> s.concat("-"))
+//                .forEach(System.out::print);
+
+//        String[] names = {"terry", "sam", "jake"};
+//        Arrays.stream(names)
+//                .map(String::toUpperCase)
+//                .forEach(System.out::println);
     }
 }
