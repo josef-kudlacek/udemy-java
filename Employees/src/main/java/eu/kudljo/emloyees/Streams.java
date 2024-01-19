@@ -1,8 +1,8 @@
 package eu.kudljo.emloyees;
 
 import java.text.NumberFormat;
-import java.util.Arrays;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -35,14 +35,17 @@ public class Streams {
                 Rubble, Betty, 4/4/1915, CEO, {avgStockPrice=300}
                 """;
 
-        peopleText.lines()
+//        Predicate<Employee> dummyEmployeePredicate = employee -> "N/A".equals(employee.getLastName());
+        Optional<Employee> optionalEmployee = peopleText.lines()
                 .map(Employee::createEmployee)
                 .map(employee -> (Employee) employee)
+                .filter(employee -> employee.getSalary() < 0)
+//                .noneMatch(employee -> employee.getSalary() < 0);
+                .findFirst();
+
+        System.out.println(optionalEmployee
                 .map(Employee::getFirstName)
-                .map(firstName -> firstName.split(""))
-                .flatMap(Arrays::stream)
-                .distinct()
-                .forEach(System.out::print);
+                .orElse("Nobody"));
 
         System.out.println();
 //        try {
