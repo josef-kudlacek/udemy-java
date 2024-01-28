@@ -4,7 +4,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static java.util.stream.Collectors.summingLong;
+
 public class BigData {
+
+    record Person(String firstName, String lastName, long salary, String state) {
+    }
+
     public static void main(String[] args) {
         try {
             long startTime = System.currentTimeMillis();
@@ -13,10 +19,8 @@ public class BigData {
                     .skip(1)
 //                    .limit(10)
                     .map(line -> line.split(","))
-                    .map(line -> line[25])
-                    .mapToLong(salary -> Long.parseLong(salary))
-                    .sum();
-//                    .collect(Collectors.summingLong(salary -> Long.parseLong(salary)));
+                    .map(array -> new Person(array[2], array[4], Long.parseLong(array[25]), array[32]))
+                    .collect(summingLong(Person::salary));
 
             long endTime = System.currentTimeMillis();
 
