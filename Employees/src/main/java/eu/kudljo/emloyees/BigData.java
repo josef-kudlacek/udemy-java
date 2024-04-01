@@ -1,6 +1,7 @@
 package eu.kudljo.emloyees;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.NumberFormat;
@@ -13,7 +14,7 @@ import static java.util.stream.Collectors.*;
 
 public class BigData {
 
-    record Person(String firstName, String lastName, long salary, String state, char gender) {
+    record Person(String firstName, String lastName, BigDecimal salary, String state, char gender) {
     }
 
     public static void main(String[] args) {
@@ -26,12 +27,12 @@ public class BigData {
                     .skip(1)
 //                    .limit(10)
                     .map(line -> line.split(","))
-                    .map(array -> new Person(array[2], array[4], Long.parseLong(array[25]), array[32], array[5].strip().charAt(0)))
+                    .map(array -> new Person(array[2], array[4], new BigDecimal(array[25]), array[32], array[5].strip().charAt(0)))
                     .collect(
                             groupingBy(Person::state, TreeMap::new,
                                     groupingBy(Person::gender,
                                             collectingAndThen(
-                                                    summingLong(Person::salary),
+                                                    reducing(BigDecimal.ZERO, Person::salary, (a, b) -> a.add(b)),
                                                     NumberFormat.getCurrencyInstance(Locale.US)::format))
                             ));
 //                    .forEach((state, salary) -> System.out.printf("%s \t %c \t %s%n", state, salary));
