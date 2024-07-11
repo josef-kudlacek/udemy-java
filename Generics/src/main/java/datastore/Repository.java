@@ -2,9 +2,14 @@ package datastore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
-public class Repository<T> {
-    record Person(String firstName, String lastName, Long id){}
+public class Repository<T extends Repository.IDable<V> & Repository.Saveable, V> {
+    record Person(String firstName, String lastName, Long id) implements IDable<Long>, Saveable {}
+    interface Saveable {}
+    interface IDable<E> {
+        E id();
+    }
     private List<T> records = new ArrayList<>();
 
     List<T> findAll() {
@@ -17,17 +22,24 @@ public class Repository<T> {
     }
 
     T findByID(long id) {
-        return records.get(Long.valueOf(id).intValue());
+        return records.stream()
+                .filter(record -> record.id().equals(id))
+                .findFirst()
+                .orElseThrow();
+    }
+
+    static <T, V> V encrypt(T data, Function<T, V> func) {
+        return func.apply(data);
     }
 
     public static void main(String[] args) {
-        Repository<String> repository = new Repository<>();
-        repository.save("house");
-        repository.save("tree");
-        repository.save("boat");
-        repository.save("plane");
+//        Repository<String> repository = new Repository<>();
+//        repository.save("house");
+//        repository.save("tree");
+//        repository.save("boat");
+//        repository.save("plane");
 
-        Repository<Person> personRepository = new Repository<>();
+        Repository<Person, Long> personRepository = new Repository<>();
         personRepository.save(new Person("Jake", "Johnson", 10L));
         personRepository.save(new Person("Mary", "Johnson", 20L));
         personRepository.save(new Person("Jerry", "Johnson", 30L));
@@ -35,7 +47,9 @@ public class Repository<T> {
         Person foundPerson = personRepository.findByID(30L);
         System.out.println(foundPerson);
 
-        System.out.println(repository.findAll());
         System.out.println(personRepository.findAll());
+
+        System.out.println(Repository.<String, String>encrypt("Hello", m -> m.toUpperCase()));
+        System.out.println(Repository.<String, Integer>encrypt("world", m -> m.hashCode()));
     }
 }
