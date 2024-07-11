@@ -7,7 +7,17 @@ import java.util.stream.Collectors;
 
 public class TimeTest {
     public static void main(String[] args) {
-        System.out.println(Instant.now());
+        LocalDate date1 = LocalDate.of(2000, 1, 1);
+        LocalDate date2 = LocalDate.of(2002, 6, 1);
+
+        LocalTime time1 = LocalTime.of(10, 30);
+        LocalTime time2 = LocalTime.of(10, 57, 39);
+
+        Period difference = Period.between(date2, date1);
+        System.out.printf("%d years, %d months, %d days%n",
+                difference.getYears(), difference.getMonths(), difference.getDays()); // -2 years, -5 months, 0 days
+
+        System.out.println(Duration.between(time1, time2).toMinutesPart());
     }
 
     private static void localDate() {
