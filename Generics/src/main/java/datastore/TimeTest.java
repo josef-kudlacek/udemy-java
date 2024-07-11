@@ -8,6 +8,19 @@ import java.util.stream.Collectors;
 public class TimeTest {
     public static void main(String[] args) {
         LocalDate date1 = LocalDate.of(2000, 1, 1);
+        LocalTime time1 = LocalTime.of(10, 30);
+        LocalDateTime localDateTime1 = LocalDateTime.of(date1, time1);
+
+        System.out.println(ZonedDateTime.of(localDateTime1, ZoneId.of("-5")));
+
+        LocalDateTime xmas = LocalDateTime.of(2021, 12, 25, 20, 00);
+        // California - GMT-08
+        ZonedDateTime zxmas = ZonedDateTime.of(xmas, ZoneId.of("-8"));
+        System.out.println(zxmas.withZoneSameInstant(ZoneId.of("+0")));
+    }
+
+    private static void timeBetween() {
+        LocalDate date1 = LocalDate.of(2000, 1, 1);
         LocalDate date2 = LocalDate.of(2002, 6, 1);
 
         LocalTime time1 = LocalTime.of(10, 30);
