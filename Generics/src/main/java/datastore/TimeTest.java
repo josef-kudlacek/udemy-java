@@ -2,6 +2,7 @@ package datastore;
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,10 @@ public class TimeTest {
         // California - GMT-08
         ZonedDateTime zxmas = ZonedDateTime.of(xmas, ZoneId.of("-8"));
         System.out.println(zxmas.withZoneSameInstant(ZoneId.of("+0")));
+
+        // Creating immutable objects as clones
+        System.out.println(date1.with(TemporalAdjusters.lastDayOfYear()).getDayOfWeek());
+        System.out.println(date1.withMonth(3).withDayOfMonth(15));
     }
 
     private static void timeBetween() {
