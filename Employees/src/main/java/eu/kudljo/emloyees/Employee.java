@@ -13,7 +13,7 @@ public abstract class Employee implements IEmployee {
     protected String lastName;
     protected String firstName;
     protected LocalDate dob;
-    private static final String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)})?\\n";
+    private static final String peopleRegex = "(?<lastName>\\w+),\\s*(?<firstName>\\w+),\\s*(?<dob>\\d{1,2}/\\d{1,2}/\\d{4}),\\s*(?<role>\\w+)(?:,\\s*\\{(?<details>.*)})?\\n?";
     public static final Pattern PEOPLE_REGEX = Pattern.compile(peopleRegex);
     protected final Matcher peopleMatcher;
     protected final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
