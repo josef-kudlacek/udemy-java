@@ -89,6 +89,12 @@ public class Person {
         System.out.println(words[2]);
     }
 
+    // Usage only for local variables
+    public void myTestMethod() {
+        var age = 21;
+        var name = "Jake";
+    }
+
     public static void main(String[] args) {
         Person person1 = new Person();
         person1.firstName = "Jake";
